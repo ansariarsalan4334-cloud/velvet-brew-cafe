@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velvet Brew Cafe</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0f0f0f;
+            color: white;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            position: fixed;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 80px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        nav h1 {
+            color: #ffb347;
+            font-size: 24px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav ul li {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        nav ul li:hover {
+            color: #ffb347;
+            transform: scale(1.1);
+        }
+
+        /* HERO */
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url("https://images.unsplash.com/photo-1509042239860-f550ce710b93");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            font-size: 70px;
+            color: #ffb347;
+            animation: fadeDown 1.5s;
+        }
+
+        .hero p {
+            margin-top: 20px;
+            font-size: 20px;
+            max-width: 600px;
+            color: #ddd;
+            animation: fadeUp 2s;
+        }
+
+        .hero button {
+            margin-top: 30px;
+            padding: 14px 28px;
+            border: none;
+            background: #ffb347;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .hero button:hover {
+            background: #ffa500;
+            transform: scale(1.1);
+        }
+
+        /* ABOUT */
+
+        .about {
+            padding: 120px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about img {
+            width: 100%;
+            border-radius: 15px;
+            transition: 0.5s;
+        }
+
+        .about img:hover {
+            transform: scale(1.05);
+        }
+
+        .about h2 {
+            color: #ffb347;
+            margin-bottom: 20px;
+        }
+
+        /* MENU */
+
+        .menu {
+            padding: 120px 80px;
+            text-align: center;
+        }
+
+        .menu h2 {
+            color: #ffb347;
+            margin-bottom: 40px;
+            font-size: 40px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #1c1c1c;
+            padding: 25px;
+            border-radius: 15px;
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 179, 71, 0.4);
+        }
+
+        .card h3 {
+            color: #ffb347;
+            margin-bottom: 10px;
+        }
+
+        /* GALLERY */
+
+        .gallery {
+            padding: 120px 80px;
+        }
+
+        .gallery h2 {
+            text-align: center;
+            color: #ffb347;
+            margin-bottom: 40px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            border-radius: 12px;
+            transition: 0.4s;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.07);
+        }
+
+        /* CONTACT */
+
+        .contact {
+            padding: 120px 80px;
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: #ffb347;
+            margin-bottom: 40px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input,
+        textarea {
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            background: #ffb347;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ffa500;
+            transform: scale(1.05);
+        }
+
+        /* LOGIN SIGNUP MODAL */
+
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .auth-box {
+            background: #1c1c1c;
+            padding: 40px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 300px;
+            animation: fadeUp 0.6s;
+            position: relative;
+        }
+
+        .auth-box h2 {
+            text-align: center;
+            color: #ffb347;
+        }
+
+        .auth-box p {
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            cursor: pointer;
+            font-size: 22px;
+        }
+
+        /* ANIMATIONS */
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #000;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+
+        <h1>☕ Velvet Brew</h1>
+
+        <ul>
+            <li onclick="scrollToSection('hero')">Home</li>
+            <li onclick="scrollToSection('about')">About</li>
+            <li onclick="scrollToSection('menu')">Menu</li>
+            <li onclick="scrollToSection('gallery')">Gallery</li>
+            <li onclick="scrollToSection('contact')">Reservation</li>
+            <li onclick="openAuth()">Login</li>
+        </ul>
+
+    </nav>
+
+    <!-- HERO -->
+
+    <section class="hero" id="hero">
+
+        <h1>Velvet Brew Cafe</h1>
+
+        <p>
+            Where every coffee tells a story.
+            Enjoy handcrafted brews and relaxing vibes.
+        </p>
+
+        <button onclick="scrollToSection('menu')">Explore Menu</button>
+
+    </section>
+
+    <!-- ABOUT -->
+
+    <section class="about" id="about">
+
+        <div>
+            <h2>About Our Cafe</h2>
+            <p>
+                Velvet Brew Cafe is a cozy place for coffee lovers.
+                We serve premium coffee, delicious desserts, and
+                create a relaxing environment to unwind with friends.
+            </p>
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085">
+
+    </section>
+
+    <!-- MENU -->
+
+    <section class="menu" id="menu">
+
+        <h2>Our Menu</h2>
+
+        <div class="menu-grid">
+
+            <div class="card">
+                <h3>Espresso</h3>
+                <p>$3</p>
+            </div>
+
+            <div class="card">
+                <h3>Cappuccino</h3>
+                <p>$4</p>
+            </div>
+
+            <div class="card">
+                <h3>Latte</h3>
+                <p>$4.5</p>
+            </div>
+
+            <div class="card">
+                <h3>Mocha</h3>
+                <p>$5</p>
+            </div>
+
+            <div class="card">
+                <h3>Chocolate Cake</h3>
+                <p>$4</p>
+            </div>
+
+            <div class="card">
+                <h3>Cold Coffee</h3>
+                <p>$3.5</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- GALLERY -->
+
+    <section class="gallery" id="gallery">
+
+        <h2>Cafe Moments</h2>
+
+        <div class="gallery-grid">
+
+            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31">
+            <img src="https://images.unsplash.com/photo-1459755486867-b55449bb39ff">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93">
+            <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb">
+
+        </div>
+
+    </section>
+
+    <!-- CONTACT -->
+
+    <section class="contact" id="contact">
+
+        <h2>Reserve a Table</h2>
+
+        <form>
+
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Email">
+            <input type="date">
+            <textarea placeholder="Message"></textarea>
+            <button>Book Table</button>
+
+        </form>
+
+    </section>
+
+    <!-- LOGIN SIGNUP POPUP -->
+
+    <div class="auth-modal" id="authModal">
+
+        <div class="auth-box">
+
+            <span class="close" onclick="closeAuth()">×</span>
+
+            <h2 id="formTitle">Login</h2>
+
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+
+            <button>Login</button>
+
+            <p onclick="toggleForm()" id="switchText">
+                Don't have an account? Sign Up
+            </p>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Velvet Brew Cafe</p>
+    </footer>
+
+    <script>
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+        }
+
+        function openAuth() {
+            document.getElementById("authModal").style.display = "flex";
+        }
+
+        function closeAuth() {
+            document.getElementById("authModal").style.display = "none";
+        }
+
+        let loginMode = true;
+
+        function toggleForm() {
+
+            let title = document.getElementById("formTitle");
+            let text = document.getElementById("switchText");
+
+            if (loginMode) {
+                title.innerText = "Sign Up";
+                text.innerText = "Already have an account? Login";
+                loginMode = false;
+            }
+            else {
+                title.innerText = "Login";
+                text.innerText = "Don't have an account? Sign Up";
+                loginMode = true;
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
